@@ -12,16 +12,33 @@ import java.util.Map;
 
 public class JsonUtils {
 
-    public static Sandwich parseSandwichJson(String json) {
+    public static Sandwich parseSandwichJson(String json){
 
-        Sandwich sandwich = new Sandwich();
+        Sandwich sandwich= new Sandwich();
 
-        try {
-            JSONObject sandwichDetails = new JSONObject(json);
+        try{
+        JSONObject sandwichDetails = new JSONObject(json);
+        JSONObject sandwichName = sandwichDetails.getJSONObject("name");
+        JSONArray alsoKnownAs = sandwichName.getJSONArray("alsoKnownAs");
+        JSONArray ingredients = sandwichName.getJSONArray("ingredients");
 
-            JSONObject sandwichName = sandwichDetails.getJSONObject("name");
-            JSONArray alsoKnownAs = sandwichName.getJSONArray("alsoKnownAs");
-            JSONArray ingredients = sandwichName.getJSONArray("ingredients");
+
+//            String mainName;
+//            List<String> knownAs;
+//            String placeOrigin;
+//            String description;
+//            String image;
+//            List<String> ing;
+//
+//
+//            mainName = sandwichName.getString("mainName");
+//            knownAs = getList(alsoKnownAs);
+//            placeOrigin = sandwichDetails.getString("placeOfOrigin");
+//            description = sandwichDetails.getString("description");
+//            image = sandwichDetails.getString("image");
+//            ing = getList(ingredients);
+
+
 
             sandwich.setMainName(sandwichName.getString("mainName"));
             sandwich.setAlsoKnownAs(getList(alsoKnownAs));
@@ -30,14 +47,19 @@ public class JsonUtils {
             sandwich.setImage(sandwichDetails.getString("image"));
             sandwich.setIngredients(getList(ingredients));
 
-
-        } catch (JSONException e) {
+        }catch(JSONException e){
             e.printStackTrace();
         }
+//        Sandwich sandwich = new Sandwich(
+//                mainName,
+//                knownAs,
+//                placeOrigin,
+//                description,
+//                image,
+//                ing);
 
+            return sandwich;
 
-
-        return sandwich;
     }
 
     private static List<String> getList(JSONArray jArray){
