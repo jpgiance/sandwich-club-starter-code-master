@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.drawable.Drawable;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class DetailActivity extends AppCompatActivity {
         populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
+                .placeholder(R.mipmap.sandwich_icon_foreground)
                 .into(ingredientsIv);
 
         setTitle(sandwich.getMainName());
