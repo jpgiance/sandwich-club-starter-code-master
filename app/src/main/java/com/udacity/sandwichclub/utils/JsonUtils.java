@@ -12,73 +12,38 @@ import java.util.Map;
 
 public class JsonUtils {
 
-    public static Sandwich parseSandwichJson(String json){
-
-        Sandwich sandwich= new Sandwich();
-
-        try{
-        JSONObject sandwichDetails = new JSONObject(json);
-        JSONObject sandwichName = sandwichDetails.getJSONObject("name");
-        JSONArray alsoKnownAs = sandwichName.getJSONArray("alsoKnownAs");
-        JSONArray ingredients = sandwichName.getJSONArray("ingredients");
+    public static Sandwich parseSandwichJson(String json) {
+        Sandwich sandwich = new Sandwich();
+        try {
+            JSONObject sandwichDetails = new JSONObject(json);
+            JSONObject sandwichName = sandwichDetails.getJSONObject("name");
 
 
-//            String mainName;
-//            List<String> knownAs;
-//            String placeOrigin;
-//            String description;
-//            String image;
-//            List<String> ing;
-//
-//
-//            mainName = sandwichName.getString("mainName");
-//            knownAs = getList(alsoKnownAs);
-//            placeOrigin = sandwichDetails.getString("placeOfOrigin");
-//            description = sandwichDetails.getString("description");
-//            image = sandwichDetails.getString("image");
-//            ing = getList(ingredients);
+            List<String> knownAsList = new ArrayList<>();
+            List<String> ingredientsList = new ArrayList<>();
 
+            JSONArray alsoKnowAs = sandwichName.getJSONArray("alsoKnownAs");
+            for (int i = 0; i < alsoKnowAs.length(); i++) {
+                knownAsList.add(alsoKnowAs.getString(i));
+            }
 
+            JSONArray ingredients = sandwichDetails.getJSONArray("ingredients");
+            for (int i = 0; i < ingredients.length(); i++) {
+                ingredientsList.add(ingredients.getString(i));
+            }
 
             sandwich.setMainName(sandwichName.getString("mainName"));
-            sandwich.setAlsoKnownAs(getList(alsoKnownAs));
+            sandwich.setAlsoKnownAs(knownAsList);
             sandwich.setPlaceOfOrigin(sandwichDetails.getString("placeOfOrigin"));
             sandwich.setDescription(sandwichDetails.getString("description"));
             sandwich.setImage(sandwichDetails.getString("image"));
-            sandwich.setIngredients(getList(ingredients));
-
-        }catch(JSONException e){
+            sandwich.setIngredients(ingredientsList);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-//        Sandwich sandwich = new Sandwich(
-//                mainName,
-//                knownAs,
-//                placeOrigin,
-//                description,
-//                image,
-//                ing);
-
-            return sandwich;
-
-    }
-
-    private static List<String> getList(JSONArray jArray){
-
-        List<String> list = new ArrayList<>();
-
-        for(int i =0; i<jArray.length(); i++){
-
-            try {
-                String value = jArray.getString(i);
-                list.add(value);
-            }catch (JSONException e) {
-                e.printStackTrace();
-            }
+        return sandwich;
 
 
-        }
-
-        return list;
     }
 
 

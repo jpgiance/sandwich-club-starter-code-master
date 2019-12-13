@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -36,13 +37,10 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView ingredientsIv = findViewById(R.id.image_iv);
 
-       alsoKnownAsText = (TextView) findViewById(R.id.also_known_tv);
-       originText = (TextView)findViewById(R.id.origin_tv);
-       descriptionText = (TextView)findViewById(R.id.description_tv);
-       ingredientText = (TextView)findViewById(R.id.ingredients_tv);
-
-
-
+        alsoKnownAsText = (TextView) findViewById(R.id.also_known_tv);
+        originText = (TextView) findViewById(R.id.origin_tv);
+        descriptionText = (TextView) findViewById(R.id.description_tv);
+        ingredientText = (TextView) findViewById(R.id.ingredients_tv);
 
 
         Intent intent = getIntent();
@@ -62,19 +60,17 @@ public class DetailActivity extends AppCompatActivity {
         Sandwich sandwich = null;
 
 
-            sandwich = JsonUtils.parseSandwichJson(json);
-
-
+        sandwich = JsonUtils.parseSandwichJson(json);
 
         if (sandwich == null) {
             // Sandwich data unavailable
-            Log.d("DetailActivity","sandwich object is null");
+            Log.d("DetailActivity", "sandwich object is null");
             closeOnError();
             return;
         }
 
 
-
+        populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
@@ -91,35 +87,26 @@ public class DetailActivity extends AppCompatActivity {
 
     private void populateUI(Sandwich sandwich) {
 
-
-
         List<String> knownAs = sandwich.getAlsoKnownAs();
         List<String> ingredients = sandwich.getIngredients();
-        String origin =sandwich.getPlaceOfOrigin();
-        String description =sandwich.getDescription();
 
-       // originText.setVisibility(View.VISIBLE);
         originText.setText(sandwich.getPlaceOfOrigin());
         descriptionText.setText(sandwich.getDescription());
-//        if(!origin.isEmpty()) {
-//            originText.setVisibility(View.VISIBLE);
-//            originText.append(sandwich.getPlaceOfOrigin());
-//
-//        }
-//
-//        if ( !description.isEmpty()){
-//            descriptionText.setVisibility(View.VISIBLE);
-//            descriptionText.append(sandwich.getDescription());
-//        }
 
-//        for (int i=0; i<knownAs.size(); i++){
-//            alsoKnownAsText.append(knownAs.get(i));
-//            alsoKnownAsText.append("; ");
-//        }
-//        for (int i=0; i<ingredients.size(); i++){
-//            ingredientText.append(ingredients.get(i));
-//            ingredientText.append("; ");
-//        }
+        for (int i = 0; i < knownAs.size(); i++) {
+            if (i != 0) {
+                alsoKnownAsText.append("; ");
+            }
+            alsoKnownAsText.append(knownAs.get(i));
+
+        }
+        for (int i = 0; i < ingredients.size(); i++) {
+            if (i != 0) {
+                ingredientText.append("; ");
+            }
+            ingredientText.append(ingredients.get(i));
+
+        }
 
     }
 }
