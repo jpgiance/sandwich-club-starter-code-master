@@ -12,6 +12,14 @@ import java.util.Map;
 
 public class JsonUtils {
 
+
+    /*
+     * This method parseSandwichJson() takes a String object with JSON format as argument
+     * and parses it by initializing internal variables in a Sandwich object. This Sandwich object
+     * is returned.
+     *
+     */
+
     public static Sandwich parseSandwichJson(String json) {
         Sandwich sandwich = new Sandwich();
         try {
@@ -31,6 +39,10 @@ public class JsonUtils {
             for (int i = 0; i < ingredients.length(); i++) {
                 ingredientsList.add(ingredients.getString(i));
             }
+
+            /*
+             * sandwich initialization
+             */
 
             sandwich.setMainName(sandwichName.getString("mainName"));
             sandwich.setAlsoKnownAs(knownAsList);

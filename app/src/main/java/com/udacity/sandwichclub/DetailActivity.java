@@ -72,6 +72,15 @@ public class DetailActivity extends AppCompatActivity {
 
 
         populateUI(sandwich);
+
+        /*
+         * Picasso utility will load the corresponding image file contained
+         * in the JSON String.
+         *
+         *If the link to the image file does not work, a placeholder image will be loaded.
+         *
+         */
+
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .placeholder(R.mipmap.sandwich_icon_foreground)
@@ -86,6 +95,15 @@ public class DetailActivity extends AppCompatActivity {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
+
+
+
+
+    /*
+     * this method populateUI() takes a Sandwich object as argument and populate textViews in
+     * activity_detail.xml view.
+     *
+     */
 
     private void populateUI(Sandwich sandwich) {
 
