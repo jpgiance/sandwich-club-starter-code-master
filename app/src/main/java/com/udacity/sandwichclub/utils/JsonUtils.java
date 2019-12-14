@@ -38,11 +38,12 @@ public class JsonUtils {
             sandwich.setDescription(sandwichDetails.getString("description"));
             sandwich.setImage(sandwichDetails.getString("image"));
             sandwich.setIngredients(ingredientsList);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return sandwich;
 
+        return sandwich;
 
     }
 
